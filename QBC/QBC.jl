@@ -1,25 +1,26 @@
-# QBC: Selected the quantum state with the maximum variance
-function selectState(states, circuits, k)
-	result = Float64[]
-	len = length(states)
-	for i in 1:len
-		outs = []
-		# k members committee predictions
-		for j in 1:k
-			push!(outs, circuits[j]*states[i])
-		end
-		# Compute mean
-		average_state = sum(outs) / k
-		tmp = 0
-		# Compute vaiance
-		for j in 1:k
-			tmp = tmp + distance(outs[j], average_state)
-		end
-		push!(result, tmp)
-	end
-	index = argmax(result)
-	return index, states[index]
+function selectState_pureavg(states, circuits, k)
+    result = Float64[]
+    len = length(states)
+
+    for i in 1:len
+        outs = [circuits[j] * states[i] for j in 1:k]
+        total_distance = 0.0
+        for j in 1:k
+            sum_d = 0.0
+            for l in 1:k  
+                sum_d += sqrt(2 * (1 - abs(vdot(outs[j], outs[l]))))
+            end
+            total_distance += sum_d / k
+        end
+        avg_dist = total_distance / k
+        push!(result, avg_dist)   
+    end
+
+    index = argmax(result)
+    return index, states[index]
 end
+
+
 
 # Select a set of quantum states
 function selectStates(L, depth, input, k, alpha, epochs, UU, states, initial_states, target_states)

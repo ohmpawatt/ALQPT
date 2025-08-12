@@ -1,6 +1,6 @@
 # Select a set of quantum states randomly
 @everywhere function selectStates(L, input, UU)
-	states = generateAllPauliStates(L)
+	states = generateAllInfoCompleteStates(L)
     initial_states=[]
     target_states=[]
 	indices = randperm(length(states))[1:input]

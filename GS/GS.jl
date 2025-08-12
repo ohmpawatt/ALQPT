@@ -8,8 +8,7 @@
 		for i in 1:len
 			dis = Inf
 			for state in initial_states
-				tmp = states[i]- state
-				v = Real(vdot(conj(tmp), tmp))
+				v = sqrt(2*(1 - abs(vdot(state[i], state))))
 				if v < dis
 					dis = v
 				end

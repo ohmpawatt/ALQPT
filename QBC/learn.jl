@@ -4,7 +4,7 @@
 	@sync @distributed for i in 1:number
 		try
 			println("Process ", myid(), " is working on number ", i)
-			states = generateAllPauliStates(L)
+			states =generateAllInfoCompleteStates(L)
 			initial_states=[]
 			target_states=[]
 			for j in 1:input

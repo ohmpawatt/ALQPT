@@ -24,10 +24,10 @@ using Base.Threads
 @everywhere Operator = qiskit.quantum_info.Operator
 @everywhere using Plots
 
-include("../Model/states.jl")
 include("../Model/VQC.jl")
 include("../Model/RQC.jl")
 include("../Model/train.jl")
+include("../Model/states.jl")
 include("QBC.jl")
 include("learn.jl")
 include("save.jl")
@@ -41,8 +41,8 @@ number = 100 # Repeate numbers
 L = 4 # Numbers of qubits
 input = 4 # Number of quantum states
 D = 6 # RQC depth
-depth = 1 # VQC depth
-k = 7 # Number of committee members
+depth = 7 # VQC depth
+k = 6 # Number of committee members
 
 # Generate target unitray
 Xseq,Yseq,Tseq = generateRandomSeq(L,D)

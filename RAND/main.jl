@@ -24,10 +24,10 @@ using Base.Threads
 @everywhere Operator = qiskit.quantum_info.Operator
 @everywhere using Plots
 
-include("../Model/states.jl")
 include("../Model/VQC.jl")
 include("../Model/RQC.jl")
 include("../Model/train.jl")
+include("../Model/states.jl")
 include("RAND.jl")
 include("learn.jl")
 include("save.jl")

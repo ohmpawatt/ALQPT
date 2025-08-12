@@ -34,3 +34,39 @@ end
 
     return all_states
 end
+
+@everywhere begin
+    H = (1/sqrt(2))*[1  1;
+                     1 -1]
+    S = [1 0;
+         0 im]
+    ket0 = ComplexF64[1.0; 0.0]
+    ket1 = ComplexF64[0.0; 1.0]
+         
+    ket_plus = H * ket0
+    ket_plus_i = S * ket_plus
+    D1 = []
+    push!(D1, vector_to_statevector(ket0))
+    push!(D1, vector_to_statevector(ket1))
+    push!(D1, vector_to_statevector(ket_plus))
+    push!(D1, vector_to_statevector(ket_plus_i))
+    
+
+    function generateAllInfoCompleteStates(n)
+        if n == 1
+            return D1
+        else
+            prev_states = generateAllInfoCompleteStates(n - 1)  
+            new_states = []  
+            for s1 in D1, s2 in prev_states
+                kron_vec = kron(s1.data, s2.data)
+                push!(new_states, vector_to_statevector(kron_vec))
+            end
+            return new_states
+        end
+    end
+end
+
+
+
+
